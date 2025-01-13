@@ -15,7 +15,7 @@ body {
   height: 50px;
   background-color: #ccc;
   border: 1px solid #333;
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
   cursor: pointer;
