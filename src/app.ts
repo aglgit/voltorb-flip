@@ -1,4 +1,4 @@
-import { LEVELS } from "./LEVELS";
+import { LEVELS } from "./levels";
 
 const BOARD_SIZE = 5;
 const TILE_COUNT = BOARD_SIZE * BOARD_SIZE;
