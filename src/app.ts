@@ -159,7 +159,6 @@ class GameBoard {
 
     clickListener(row: number, col: number): void {
         if (this.gameover) {
-            this.level--;
             this.resetBoard();
         } else {
             const tile = this.tiles[row][col];
@@ -168,6 +167,7 @@ class GameBoard {
                 this.gameover = true;
                 alert("Game over!");
                 this.flipBoard(true);
+                this.level = this.level > 1 ? this.level - 1 : 1
             } else {
                 if (tile.value > 1) {
                     this.num2s3s--;
