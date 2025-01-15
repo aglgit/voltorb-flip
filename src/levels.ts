@@ -1,8 +1,8 @@
-export type LevelData = [number, number, number]
+export type LevelData = [number, number, number];
 
 export type Levels = {
     [key: string]: LevelData[];
-}
+};
 
 export const LEVELS: Levels = {
     "1": [
