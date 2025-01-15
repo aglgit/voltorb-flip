@@ -46,12 +46,12 @@ class GameBoard {
     calculateRowSums(): TileSum[][] {
         const colSums = Array(this.tiles[0].length)
             .fill(0)
-            .map((v) => {
+            .map(() => {
                 return { sumValue: 0, sumVoltorb: 0 };
             });
         const rowSums = Array(this.tiles[0].length)
             .fill(0)
-            .map((v) => {
+            .map(() => {
                 return { sumValue: 0, sumVoltorb: 0 };
             });
         for (let i = 0; i < this.tiles.length; i++) {
@@ -114,7 +114,7 @@ class GameBoard {
     renderBoard() {
         const gameBoard: HTMLElement | null =
             document.getElementById("game-board");
-        gameBoard!!.innerHTML = "";
+        gameBoard!.innerHTML = "";
 
         const tiles = this.tiles;
         const rowSums = this.rowSums;
@@ -150,14 +150,14 @@ class GameBoard {
 
     renderInfo(): void {
         const levelElement = document.getElementById("info-level");
-        levelElement!!.textContent = `Level: \n${this.level}`;
+        levelElement!.textContent = `Level: \n${this.level}`;
         const coinsElement = document.getElementById("info-coins");
-        coinsElement!!.textContent = `Total coins: \n${this.totalCoins}`;
+        coinsElement!.textContent = `Total coins: \n${this.totalCoins}`;
         const levelCoinsElement = document.getElementById("info-coins-level");
-        levelCoinsElement!!.textContent = `Coins this level: \n${this.coinsThisLevel}`;
+        levelCoinsElement!.textContent = `Coins this level: \n${this.coinsThisLevel}`;
     }
 
-    clickListener(row: number, col: number): any {
+    clickListener(row: number, col: number): void {
         if (this.gameover) {
             this.level--;
             this.resetBoard();
@@ -190,8 +190,8 @@ class GameBoard {
 
     flipBoard(reveal: boolean) {
         const tiles = this.tiles;
-        tiles.forEach((row, i) => {
-            row.forEach((col, i) => {
+        tiles.forEach((row) => {
+            row.forEach((col) => {
                 col.isRevealed = reveal;
             });
         });
