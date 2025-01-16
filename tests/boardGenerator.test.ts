@@ -10,8 +10,6 @@ test("Board has correct dimensions", () => {
     const grid = boardGenerator.generateBoard(levelData, BOARD_SIZE);
 
     let size = 0;
-    let numRows = 0;
-    let numCols = 0;
     expect(grid.length).toBe(BOARD_SIZE);
     for (let i = 0; i < grid.length; i++) {
         expect(grid[i].length).toBe(BOARD_SIZE);
