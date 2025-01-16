@@ -1,6 +1,4 @@
 import { expect, test } from "vitest";
-import { LEVELS } from "../src/types/levels";
-import { BOARD_SIZE } from "../src/types/constants";
 import BoardCalculator from "../src/board/BoardCalculator";
 import { TileSum } from "../src/types/tiles";
 
