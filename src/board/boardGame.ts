@@ -2,8 +2,7 @@ import BoardCalculator from "./boardCalculator";
 import BoardGenerator from "./boardGenerator";
 import { LEVELS } from "../types/levels";
 import { Tile, TileSum } from "../types/tiles";
-
-const BOARD_SIZE = 5;
+import { BOARD_SIZE } from "../types/constants";
 
 class BoardGame {
     boardGenerator: BoardGenerator;
