@@ -91,9 +91,9 @@ class BoardContainer {
     ): void {
         tileElement.className = "info-tile";
         if (i == 5) {
-            tileElement.textContent = `0${colSums[j].sumValue}\n${colSums[j].sumVoltorb}`;
+            tileElement.textContent = `Sum: 0${colSums[j].sumValue}\n💣:${colSums[j].sumVoltorb}`;
         } else if (j == 5) {
-            tileElement.textContent = `0${rowSums[i].sumValue}\n${rowSums[i].sumVoltorb}`;
+            tileElement.textContent = `Sum: 0${rowSums[i].sumValue}\n💣:${rowSums[i].sumVoltorb}`;
         }
     }
 
