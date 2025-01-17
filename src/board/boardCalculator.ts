@@ -1,4 +1,4 @@
-import { Tile, TileSum } from "../types/tiles";
+import { Tile, TileSum } from "@src/types/tiles";
 
 class BoardCalculator {
     public calculateRowSums(grid: Tile[][]): [TileSum[], TileSum[]] {
@@ -22,7 +22,6 @@ class BoardCalculator {
                 }
             }
         }
-        console.log(rowSums, colSums);
         return [rowSums, colSums];
     }
 

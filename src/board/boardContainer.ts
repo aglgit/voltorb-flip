@@ -1,8 +1,8 @@
 import BoardCalculator from "./boardCalculator";
 import BoardGenerator from "./boardGenerator";
-import { LEVELS } from "../types/levels";
-import { Tile, TileSum } from "../types/tiles";
-import { BOARD_SIZE } from "../types/constants";
+import { BOARD_SIZE } from "@src/types/constants";
+import { LEVELS } from "@src/types/levels";
+import { Tile, TileSum } from "@src/types/tiles";
 
 class BoardContainer {
     boardGenerator: BoardGenerator;
