@@ -20,7 +20,7 @@ test("Board has correct dimensions", () => {
     expect(size).toBe(BOARD_SIZE * BOARD_SIZE);
 });
 
-test("Board has correct number of tiles", () => {
+test("Board has correct number of each tile", () => {
     const levelData = LEVELS[1][2];
     const grid = boardGenerator.generateBoard(levelData, BOARD_SIZE);
 

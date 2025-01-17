@@ -1,8 +1,8 @@
 import BoardCalculator from "./board/boardCalculator";
-import BoardGame from "./board/boardGame";
+import BoardContainer from "./board/boardContainer";
 import BoardGenerator from "./board/boardGenerator";
 
 const generator = new BoardGenerator();
 const calculator = new BoardCalculator();
-const game = new BoardGame(generator, calculator);
+const game = new BoardContainer(generator, calculator);
 game.renderGame();

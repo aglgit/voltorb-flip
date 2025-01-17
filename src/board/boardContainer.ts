@@ -4,7 +4,7 @@ import { LEVELS } from "../types/levels";
 import { Tile, TileSum } from "../types/tiles";
 import { BOARD_SIZE } from "../types/constants";
 
-class BoardGame {
+class BoardContainer {
     boardGenerator: BoardGenerator;
     boardCalculator: BoardCalculator;
     grid: Tile[][];
@@ -181,4 +181,4 @@ class BoardGame {
     }
 }
 
-export default BoardGame;
+export default BoardContainer;
