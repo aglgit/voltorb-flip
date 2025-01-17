@@ -4,5 +4,10 @@ export default defineConfig({
     server: {
         hmr: true,
     },
-    base: "/voltorb-flip/"
+    base: "/voltorb-flip/",
+    resolve: {
+        alias: {
+            "@": "/src"
+        }
+    },
 });
