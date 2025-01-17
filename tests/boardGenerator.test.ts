@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
-import { LEVELS } from "../src/types/levels";
-import { BOARD_SIZE } from "../src/types/constants";
-import BoardGenerator from "../src/board/boardGenerator";
+import BoardGenerator from "@/board/boardGenerator";
+import { BOARD_SIZE } from "@/types/constants";
+import { LEVELS } from "@/types/levels";
 
 const boardGenerator: BoardGenerator = new BoardGenerator();
 

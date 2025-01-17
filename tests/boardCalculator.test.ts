@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import BoardCalculator from "../src/board/BoardCalculator";
-import { TileSum } from "../src/types/tiles";
+import BoardCalculator from "@/board/BoardCalculator";
+import { TileSum } from "@/types/tiles";
 
 const boardCalculator: BoardCalculator = new BoardCalculator();
 
