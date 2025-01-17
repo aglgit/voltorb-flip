@@ -4,4 +4,5 @@ export default defineConfig({
     server: {
         hmr: true,
     },
+    base: "/voltorb-flip/"
 });
