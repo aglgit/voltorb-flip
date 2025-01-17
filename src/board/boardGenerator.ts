@@ -1,5 +1,5 @@
-import { LevelData } from "../types/levels";
-import { Tile } from "../types/tiles";
+import { LevelData } from "@src/types/levels";
+import { Tile } from "@src/types/tiles";
 
 class BoardGenerator {
     public generateBoard(levelData: LevelData, boardSize: number): Tile[][] {

@@ -7,7 +7,7 @@ export default defineConfig({
     base: "/voltorb-flip/",
     resolve: {
         alias: {
-            "@": "/src"
-        }
+            "@src": "/src",
+        },
     },
 });
