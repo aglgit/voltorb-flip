@@ -1,4 +1,4 @@
-import { Tile, TileSum } from "../types/tiles";
+import { Tile, TileSum } from "@src/types/tiles";
 
 class BoardCalculator {
     public calculateRowSums(grid: Tile[][]): [TileSum[], TileSum[]] {
