@@ -22,7 +22,6 @@ class BoardCalculator {
                 }
             }
         }
-        console.log(rowSums, colSums);
         return [rowSums, colSums];
     }
 
