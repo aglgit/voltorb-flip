@@ -28,4 +28,6 @@ jobs:
               run: npm test
 
             - name: Deploy
-              run: npm run deploy
+              run: |
+                git remote set-url origin https://aglgit:${{ secrets.ACCESS_TOKEN }}@github.com/aglgit/voltorb-flip.git
+                npm run deploy
