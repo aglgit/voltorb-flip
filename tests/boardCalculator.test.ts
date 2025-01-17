@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import BoardCalculator from "@/board/BoardCalculator";
+import BoardCalculator from "@/board/boardCalculator";
 import { TileSum } from "@/types/tiles";
 
 const boardCalculator: BoardCalculator = new BoardCalculator();
