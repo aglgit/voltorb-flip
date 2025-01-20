@@ -23,7 +23,10 @@
         "build": "vite build",
         "preview": "vite preview",
         "deploy": "vite build && gh-pages -d dist",
-        "test": "vitest"
+        "test": "vitest",
+        "prettify": "prettier . --write",
+        "lint": "eslint --fix",
+        "pretty-lint": "npm run prettify && npm run lint"
     },
     "keywords": [],
     "author": "",

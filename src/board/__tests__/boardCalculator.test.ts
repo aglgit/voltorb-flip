@@ -1,15 +1,12 @@
 import { expect, test } from "vitest";
 import BoardCalculator from "@src/board/boardCalculator";
-import { TileSum } from "@src/types/tiles";
 
 const boardCalculator: BoardCalculator = new BoardCalculator();
 
 test("Calculator computes correct sums", () => {
     const grid = testGrid;
-    let rowSums: TileSum[];
-    let colSums: TileSum[];
 
-    [rowSums, colSums] = boardCalculator.calculateRowSums(grid);
+    const [rowSums, colSums] = boardCalculator.calculateRowSums(grid);
 
     const expectedRowSums = [
         {
