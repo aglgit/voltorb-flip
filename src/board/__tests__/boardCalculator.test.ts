@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import BoardCalculator from "@src/board/boardCalculator";
+import { Tile } from "@src/types/tiles";
 
 const boardCalculator: BoardCalculator = new BoardCalculator();
 
@@ -64,7 +65,7 @@ test("Calculator computes correct number of 2s and 3s", () => {
     expect(num2s3s).toStrictEqual(4);
 });
 
-const testGrid = [
+const testGrid: Tile[][] = [
     [
         {
             voltorb: false,
