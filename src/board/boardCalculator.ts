@@ -16,7 +16,7 @@ class BoardCalculator {
             for (let j = 0; j < grid[i].length; j++) {
                 rowSums[i].sumValue += grid[i][j].value;
                 colSums[j].sumValue += grid[i][j].value;
-                if (grid[i][j].isVoltorb) {
+                if (grid[i][j].voltorb) {
                     rowSums[i].sumVoltorb++;
                     colSums[j].sumVoltorb++;
                 }

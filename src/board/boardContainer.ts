@@ -105,8 +105,8 @@ class BoardContainer {
     ): void {
         tileElement.className = "game-tile";
         const tile = tiles[row][col];
-        tileElement.textContent = tile.isRevealed
-            ? tile.isVoltorb
+        tileElement.textContent = tile.revealed
+            ? tile.voltorb
                 ? "💣"
                 : tile.value.toString()
             : "";
@@ -135,8 +135,8 @@ class BoardContainer {
 
     private revealTile(row: number, col: number) {
         const tile = this.grid[row][col];
-        tile.isRevealed = true;
-        if (tile.isVoltorb) {
+        tile.revealed = true;
+        if (tile.voltorb) {
             this.triggerGameOver();
         } else {
             if (tile.value > 1) {
@@ -175,7 +175,7 @@ class BoardContainer {
         const tiles = this.grid;
         tiles.forEach((row) => {
             row.forEach((col) => {
-                col.isRevealed = reveal;
+                col.revealed = reveal;
             });
         });
     }

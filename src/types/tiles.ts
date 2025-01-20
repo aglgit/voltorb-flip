@@ -1,7 +1,7 @@
 export type Tile = {
-    isVoltorb: boolean;
+    voltorb: boolean;
     value: number;
-    isRevealed: boolean;
+    revealed: boolean;
 };
 
 export type TileSum = {

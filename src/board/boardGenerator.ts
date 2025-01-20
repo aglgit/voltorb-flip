@@ -36,9 +36,9 @@ class BoardGenerator {
 
     private createTile(value: number): Tile {
         return {
-            isVoltorb: value === 0,
+            voltorb: value === 0,
             value: value,
-            isRevealed: false,
+            revealed: false,
         };
     }
 }
