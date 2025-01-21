@@ -1,1 +1,1 @@
-export const BOARD_SIZE = 5;
+export const BOARD_SIZE: number = 5;
