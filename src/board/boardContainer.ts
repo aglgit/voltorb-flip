@@ -8,12 +8,14 @@ class BoardContainer {
     boardGenerator: BoardGenerator;
     boardCalculator: BoardCalculator;
     grid: Tile[][];
+    activeTile: Tile | null;
     rowSums: TileSum[];
     colSums: TileSum[];
     level: number;
     totalCoins: number;
     coinsThisLevel: number;
     gameOver: boolean;
+    memoMode: boolean;
     num2s3s: number;
 
     public constructor(
@@ -23,10 +25,12 @@ class BoardContainer {
         this.boardGenerator = boardGenerator;
         this.boardCalculator = boardCalculator;
         this.grid = [];
+        this.activeTile = null;
         this.rowSums = [];
         this.colSums = [];
         this.level = 1;
         this.gameOver = false;
+        this.memoMode = false;
         this.totalCoins = 0;
         this.coinsThisLevel = 0;
         this.num2s3s = 0;
@@ -38,6 +42,9 @@ class BoardContainer {
             this.grid
         );
         this.num2s3s = this.boardCalculator.calculateNum2s3s(this.grid);
+
+        this.renderButton();
+        this.renderNumberButtons();
     }
 
     private regenerateBoard(): void {
@@ -105,11 +112,19 @@ class BoardContainer {
     ): void {
         tileElement.className = "game-tile";
         const tile = tiles[row][col];
+        if (tile.marks == null || tile.marks == undefined)
+            tile.marks = new Set();
+        if (this.memoMode && tile.selected) {
+            this.activeTile = tile;
+            tileElement.classList.add("active");
+        }
+        const marks = Array.from(tile.marks).sort();
+        const marksStr = marks.length > 0 ? `[${marks.join(",")}]` : "";
         tileElement.textContent = tile.revealed
             ? tile.voltorb
                 ? "💣"
-                : tile.value.toString()
-            : "";
+                : tile.value.toString() + "\n" + marksStr
+            : "" + marksStr;
         tileElement.addEventListener("click", () =>
             this.clickListener(row, col)
         );
@@ -124,9 +139,80 @@ class BoardContainer {
         levelCoinsElement!.textContent = `Coins this level: \n${this.coinsThisLevel}`;
     }
 
+    private renderButton(): void {
+        const memoButton = document.getElementById("memo-button-toggle");
+        memoButton?.addEventListener("click", () => {
+            this.toggleMemoMode();
+            memoButton.textContent = this.memoMode
+                ? "Memo Mode: ON"
+                : "Memo Mode: OFF";
+            const tiles = document.querySelectorAll(".game-tile");
+            tiles.forEach((tile) => {
+                tile.classList.remove("active");
+            });
+            this.renderGame();
+        });
+    }
+
+    private renderNumberButtons(): void {
+        const button0 = document.getElementById("memo-button-0");
+        button0?.addEventListener("click", () => {
+            if (this.activeTile != null || this.activeTile != undefined) {
+                if (this.activeTile.marks.has(0)) {
+                    this.activeTile.marks.delete(0);
+                } else {
+                    this.activeTile.marks.add(0);
+                }
+            }
+            this.renderGame();
+        });
+        const button1 = document.getElementById("memo-button-1");
+        button1?.addEventListener("click", () => {
+            if (this.activeTile != null || this.activeTile != undefined) {
+                if (this.activeTile.marks.has(1)) {
+                    this.activeTile.marks.delete(1);
+                } else {
+                    this.activeTile.marks.add(1);
+                }
+            }
+            this.renderGame();
+        });
+        const button2 = document.getElementById("memo-button-2");
+        button2?.addEventListener("click", () => {
+            if (this.activeTile != null || this.activeTile != undefined) {
+                if (this.activeTile.marks.has(2)) {
+                    this.activeTile.marks.delete(2);
+                } else {
+                    this.activeTile.marks.add(2);
+                }
+            }
+            this.renderGame();
+        });
+        const button3 = document.getElementById("memo-button-3");
+        button3?.addEventListener("click", () => {
+            if (this.activeTile != null || this.activeTile != undefined) {
+                if (this.activeTile.marks.has(3)) {
+                    this.activeTile.marks.delete(3);
+                } else {
+                    this.activeTile.marks.add(3);
+                }
+            }
+            this.renderGame();
+        });
+    }
+
+    private toggleMemoMode(): void {
+        this.memoMode = !this.memoMode;
+    }
+
     private clickListener(row: number, col: number): void {
         if (this.gameOver) {
             this.regenerateBoard();
+        } else if (this.memoMode) {
+            this.grid.flat().forEach((tile) => {
+                tile.selected = false;
+            });
+            this.grid[row][col].selected = true;
         } else {
             this.revealTile(row, col);
         }

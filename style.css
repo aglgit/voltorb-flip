@@ -55,6 +55,13 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+}
+
+.game-tile.active {
+    border-color: yellow;
+    border-width: 10px;
 }
 
 .info-tile {
