@@ -3,10 +3,12 @@ import BoardGenerator from "./boardGenerator";
 import { BOARD_SIZE } from "@src/types/constants";
 import { LEVELS } from "@src/types/levels";
 import { Tile, TileSum } from "@src/types/tiles";
+import BoardListener from "./boardListener";
 
 class BoardContainer {
     boardGenerator: BoardGenerator;
     boardCalculator: BoardCalculator;
+    boardListener: BoardListener;
     grid: Tile[][];
     activeTile: Tile | null;
     rowSums: TileSum[];
@@ -20,10 +22,12 @@ class BoardContainer {
 
     public constructor(
         boardGenerator: BoardGenerator,
-        boardCalculator: BoardCalculator
+        boardCalculator: BoardCalculator,
+        boardListener: BoardListener
     ) {
         this.boardGenerator = boardGenerator;
         this.boardCalculator = boardCalculator;
+        this.boardListener = boardListener;
         this.grid = [];
         this.activeTile = null;
         this.rowSums = [];
@@ -47,7 +51,7 @@ class BoardContainer {
         this.renderNumberButtons();
     }
 
-    private resetBoard(): void {
+    public resetBoard(): void {
         this.gameOver = false;
         this.coinsThisLevel = 0;
         this.num2s3s = 0;
@@ -118,7 +122,7 @@ class BoardContainer {
                 : tile.value.toString() + "\n" + marksStr
             : "" + marksStr;
         tileElement.addEventListener("click", () =>
-            this.gameTileClickListener(tile)
+            this.boardListener.gameTileClickListener(this, tile)
         );
     }
 
@@ -146,99 +150,27 @@ class BoardContainer {
         });
     }
 
-    private numberButtonClickListener(value: number): void {
-        const activeTile = this.activeTile;
-        if (activeTile != null) {
-            if (activeTile.marks.has(value)) {
-                activeTile.marks.delete(value);
-            } else {
-                activeTile.marks.add(value);
-            }
-        }
-        this.renderGame();
-    }
-
     private renderNumberButtons(): void {
         const button0 = document.getElementById("memo-button-0");
         button0?.addEventListener("click", () => {
-            this.numberButtonClickListener(0);
+            this.boardListener.numberButtonClickListener(this, 0);
         });
         const button1 = document.getElementById("memo-button-1");
         button1?.addEventListener("click", () => {
-            this.numberButtonClickListener(1);
+            this.boardListener.numberButtonClickListener(this, 1);
         });
         const button2 = document.getElementById("memo-button-2");
         button2?.addEventListener("click", () => {
-            this.numberButtonClickListener(2);
+            this.boardListener.numberButtonClickListener(this, 2);
         });
         const button3 = document.getElementById("memo-button-3");
         button3?.addEventListener("click", () => {
-            this.numberButtonClickListener(3);
+            this.boardListener.numberButtonClickListener(this, 3);
         });
     }
 
     private toggleMemoMode(): void {
         this.memoMode = !this.memoMode;
-    }
-
-    private gameTileClickListener(tile: Tile): void {
-        if (this.gameOver) {
-            this.resetBoard();
-        } else if (this.memoMode) {
-            this.grid.flat().forEach((tile) => {
-                tile.selected = false;
-            });
-            tile.selected = true;
-        } else {
-            this.revealTile(tile);
-        }
-        this.renderGame();
-    }
-
-    private revealTile(tile: Tile) {
-        tile.revealed = true;
-        if (tile.voltorb) {
-            this.triggerGameOver();
-        } else {
-            if (tile.value > 1) {
-                this.num2s3s--;
-            }
-            this.coinsThisLevel =
-                this.coinsThisLevel > 0
-                    ? this.coinsThisLevel * tile.value
-                    : tile.value;
-        }
-        if (this.isGamecomplete()) {
-            this.triggerGameComplete();
-        }
-    }
-
-    private isGamecomplete(): boolean {
-        return this.num2s3s === 0;
-    }
-
-    private triggerGameOver() {
-        this.gameOver = true;
-        alert("Game over!");
-        this.flipBoard(true);
-        this.level = this.level > 1 ? this.level - 1 : 1;
-    }
-
-    private triggerGameComplete() {
-        this.gameOver = true;
-        alert("You won!");
-        this.flipBoard(true);
-        this.totalCoins += this.coinsThisLevel;
-        this.level++;
-    }
-
-    private flipBoard(reveal: boolean): void {
-        const grid = this.grid;
-        grid.forEach((row) => {
-            row.forEach((col) => {
-                col.revealed = reveal;
-            });
-        });
     }
 }
 
