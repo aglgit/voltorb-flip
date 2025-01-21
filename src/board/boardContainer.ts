@@ -43,11 +43,11 @@ class BoardContainer {
         );
         this.num2s3s = this.boardCalculator.calculateNum2s3s(this.grid);
 
-        this.renderButton();
+        this.renderMemoButton();
         this.renderNumberButtons();
     }
 
-    private regenerateBoard(): void {
+    private resetBoard(): void {
         this.gameOver = false;
         this.coinsThisLevel = 0;
         this.num2s3s = 0;
@@ -71,25 +71,25 @@ class BoardContainer {
             document.getElementById("game-board");
         gameBoard!.innerHTML = "";
 
-        const tiles = this.grid;
+        const grid = this.grid;
         const rowSums = this.rowSums;
         const colSums = this.colSums;
         for (let i = 0; i <= BOARD_SIZE; i++) {
             for (let j = 0; j <= BOARD_SIZE; j++) {
                 const tileElement = document.createElement("div");
-                if (i == 5 && j == 5) {
+                if (i === 5 && j === 5) {
                     tileElement.className = "empty-tile";
-                } else if (i == 5 || j == 5) {
-                    this.createInfoTile(tileElement, rowSums, colSums, i, j);
+                } else if (i === 5 || j === 5) {
+                    this.renderInfoTile(tileElement, rowSums, colSums, i, j);
                 } else {
-                    this.createGameTile(tileElement, tiles, i, j);
+                    this.renderGameTile(tileElement, grid[i][j]);
                 }
                 gameBoard?.appendChild(tileElement);
             }
         }
     }
 
-    private createInfoTile(
+    private renderInfoTile(
         tileElement: HTMLDivElement,
         rowSums: TileSum[],
         colSums: TileSum[],
@@ -97,23 +97,15 @@ class BoardContainer {
         j: number
     ): void {
         tileElement.className = "info-tile";
-        if (i == 5) {
+        if (i === 5) {
             tileElement.textContent = `Sum: 0${colSums[j].sumValue}\n💣:${colSums[j].sumVoltorb}`;
-        } else if (j == 5) {
+        } else if (j === 5) {
             tileElement.textContent = `Sum: 0${rowSums[i].sumValue}\n💣:${rowSums[i].sumVoltorb}`;
         }
     }
 
-    private createGameTile(
-        tileElement: HTMLDivElement,
-        tiles: Tile[][],
-        row: number,
-        col: number
-    ): void {
+    private renderGameTile(tileElement: HTMLDivElement, tile: Tile): void {
         tileElement.className = "game-tile";
-        const tile = tiles[row][col];
-        if (tile.marks == null || tile.marks == undefined)
-            tile.marks = new Set();
         if (this.memoMode && tile.selected) {
             this.activeTile = tile;
             tileElement.classList.add("active");
@@ -126,7 +118,7 @@ class BoardContainer {
                 : tile.value.toString() + "\n" + marksStr
             : "" + marksStr;
         tileElement.addEventListener("click", () =>
-            this.clickListener(row, col)
+            this.gameTileClickListener(tile)
         );
     }
 
@@ -139,65 +131,49 @@ class BoardContainer {
         levelCoinsElement!.textContent = `Coins this level: \n${this.coinsThisLevel}`;
     }
 
-    private renderButton(): void {
+    private renderMemoButton(): void {
         const memoButton = document.getElementById("memo-button-toggle");
         memoButton?.addEventListener("click", () => {
             this.toggleMemoMode();
             memoButton.textContent = this.memoMode
                 ? "Memo Mode: ON"
                 : "Memo Mode: OFF";
-            const tiles = document.querySelectorAll(".game-tile");
-            tiles.forEach((tile) => {
+            const gridElement = document.querySelectorAll(".game-tile");
+            gridElement.forEach((tile) => {
                 tile.classList.remove("active");
             });
             this.renderGame();
         });
     }
 
+    private numberButtonClickListener(value: number): void {
+        const activeTile = this.activeTile;
+        if (activeTile != null) {
+            if (activeTile.marks.has(value)) {
+                activeTile.marks.delete(value);
+            } else {
+                activeTile.marks.add(value);
+            }
+        }
+        this.renderGame();
+    }
+
     private renderNumberButtons(): void {
         const button0 = document.getElementById("memo-button-0");
         button0?.addEventListener("click", () => {
-            if (this.activeTile != null || this.activeTile != undefined) {
-                if (this.activeTile.marks.has(0)) {
-                    this.activeTile.marks.delete(0);
-                } else {
-                    this.activeTile.marks.add(0);
-                }
-            }
-            this.renderGame();
+            this.numberButtonClickListener(0);
         });
         const button1 = document.getElementById("memo-button-1");
         button1?.addEventListener("click", () => {
-            if (this.activeTile != null || this.activeTile != undefined) {
-                if (this.activeTile.marks.has(1)) {
-                    this.activeTile.marks.delete(1);
-                } else {
-                    this.activeTile.marks.add(1);
-                }
-            }
-            this.renderGame();
+            this.numberButtonClickListener(1);
         });
         const button2 = document.getElementById("memo-button-2");
         button2?.addEventListener("click", () => {
-            if (this.activeTile != null || this.activeTile != undefined) {
-                if (this.activeTile.marks.has(2)) {
-                    this.activeTile.marks.delete(2);
-                } else {
-                    this.activeTile.marks.add(2);
-                }
-            }
-            this.renderGame();
+            this.numberButtonClickListener(2);
         });
         const button3 = document.getElementById("memo-button-3");
         button3?.addEventListener("click", () => {
-            if (this.activeTile != null || this.activeTile != undefined) {
-                if (this.activeTile.marks.has(3)) {
-                    this.activeTile.marks.delete(3);
-                } else {
-                    this.activeTile.marks.add(3);
-                }
-            }
-            this.renderGame();
+            this.numberButtonClickListener(3);
         });
     }
 
@@ -205,22 +181,21 @@ class BoardContainer {
         this.memoMode = !this.memoMode;
     }
 
-    private clickListener(row: number, col: number): void {
+    private gameTileClickListener(tile: Tile): void {
         if (this.gameOver) {
-            this.regenerateBoard();
+            this.resetBoard();
         } else if (this.memoMode) {
             this.grid.flat().forEach((tile) => {
                 tile.selected = false;
             });
-            this.grid[row][col].selected = true;
+            tile.selected = true;
         } else {
-            this.revealTile(row, col);
+            this.revealTile(tile);
         }
         this.renderGame();
     }
 
-    private revealTile(row: number, col: number) {
-        const tile = this.grid[row][col];
+    private revealTile(tile: Tile) {
         tile.revealed = true;
         if (tile.voltorb) {
             this.triggerGameOver();
@@ -258,8 +233,8 @@ class BoardContainer {
     }
 
     private flipBoard(reveal: boolean): void {
-        const tiles = this.grid;
-        tiles.forEach((row) => {
+        const grid = this.grid;
+        grid.forEach((row) => {
             row.forEach((col) => {
                 col.revealed = reveal;
             });
