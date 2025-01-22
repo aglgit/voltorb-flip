@@ -118,6 +118,7 @@ class BoardContainer {
 
     private renderGameTile(tileElement: HTMLDivElement, tile: Tile): void {
         tileElement.className = "game-tile";
+        tileElement.tabIndex = 0;
         if (this.memoMode && tile.selected) {
             this.activeTile = tile;
             tileElement.classList.add("active");
