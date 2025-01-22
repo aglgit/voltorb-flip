@@ -4,6 +4,8 @@ export type Levels = {
     [key: string]: LevelData[];
 };
 
+export const NUM_BOARDS_PER_LEVEL: number = 5;
+
 export const LEVELS: Levels = {
     "1": [
         // 2s, 3s, Voltorbs

@@ -1,7 +1,7 @@
 import BoardCalculator from "./boardCalculator";
 import BoardGenerator from "./boardGenerator";
 import { BOARD_SIZE } from "@src/types/constants";
-import { LEVELS } from "@src/types/levels";
+import { LEVELS, NUM_BOARDS_PER_LEVEL } from "@src/types/levels";
 import { Tile, TileSum } from "@src/types/tiles";
 import BoardListener from "./boardListener";
 
@@ -40,7 +40,7 @@ class BoardContainer {
         this.num2s3s = 0;
 
         const levelData =
-            LEVELS[this.level.toString()][Math.floor(Math.random() * 5)];
+            LEVELS[this.level.toString()][Math.floor(Math.random() * NUM_BOARDS_PER_LEVEL)];
         this.grid = this.boardGenerator.generateBoard(levelData, BOARD_SIZE);
         [this.rowSums, this.colSums] = this.boardCalculator.calculateRowSums(
             this.grid
@@ -57,7 +57,7 @@ class BoardContainer {
         this.num2s3s = 0;
 
         const levelData =
-            LEVELS[this.level.toString()][Math.floor(Math.random() * 5)];
+            LEVELS[this.level.toString()][Math.floor(Math.random() * NUM_BOARDS_PER_LEVEL)];
         this.grid = this.boardGenerator.generateBoard(levelData, BOARD_SIZE);
         [this.rowSums, this.colSums] = this.boardCalculator.calculateRowSums(
             this.grid
@@ -81,9 +81,9 @@ class BoardContainer {
         for (let i = 0; i <= BOARD_SIZE; i++) {
             for (let j = 0; j <= BOARD_SIZE; j++) {
                 const tileElement = document.createElement("div");
-                if (i === 5 && j === 5) {
+                if (i === BOARD_SIZE && j === BOARD_SIZE) {
                     tileElement.className = "empty-tile";
-                } else if (i === 5 || j === 5) {
+                } else if (i === BOARD_SIZE || j === BOARD_SIZE) {
                     this.renderInfoTile(tileElement, rowSums, colSums, i, j);
                 } else {
                     this.renderGameTile(tileElement, grid[i][j]);
@@ -101,9 +101,9 @@ class BoardContainer {
         j: number
     ): void {
         tileElement.className = "info-tile";
-        if (i === 5) {
+        if (i === BOARD_SIZE) {
             tileElement.textContent = `Sum: 0${colSums[j].sumValue}\n💣:${colSums[j].sumVoltorb}`;
-        } else if (j === 5) {
+        } else if (j === BOARD_SIZE) {
             tileElement.textContent = `Sum: 0${rowSums[i].sumValue}\n💣:${rowSums[i].sumVoltorb}`;
         }
     }
