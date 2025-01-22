@@ -40,15 +40,14 @@ class BoardContainer {
         this.num2s3s = 0;
 
         const levelData =
-            LEVELS[this.level.toString()][Math.floor(Math.random() * NUM_BOARDS_PER_LEVEL)];
+            LEVELS[this.level.toString()][
+                Math.floor(Math.random() * NUM_BOARDS_PER_LEVEL)
+            ];
         this.grid = this.boardGenerator.generateBoard(levelData, BOARD_SIZE);
         [this.rowSums, this.colSums] = this.boardCalculator.calculateRowSums(
             this.grid
         );
         this.num2s3s = this.boardCalculator.calculateNum2s3s(this.grid);
-
-        this.renderMemoButton();
-        this.renderNumberButtons();
     }
 
     public resetBoard(): void {
@@ -57,12 +56,21 @@ class BoardContainer {
         this.num2s3s = 0;
 
         const levelData =
-            LEVELS[this.level.toString()][Math.floor(Math.random() * NUM_BOARDS_PER_LEVEL)];
+            LEVELS[this.level.toString()][
+                Math.floor(Math.random() * NUM_BOARDS_PER_LEVEL)
+            ];
         this.grid = this.boardGenerator.generateBoard(levelData, BOARD_SIZE);
         [this.rowSums, this.colSums] = this.boardCalculator.calculateRowSums(
             this.grid
         );
         this.num2s3s = this.boardCalculator.calculateNum2s3s(this.grid);
+    }
+
+    public startGame(): void {
+        this.renderBoard();
+        this.renderInfo();
+        this.renderMemoButton();
+        this.renderNumberButtons();
     }
 
     public renderGame(): void {

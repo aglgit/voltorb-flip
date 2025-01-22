@@ -7,4 +7,4 @@ const generator = new BoardGenerator();
 const calculator = new BoardCalculator();
 const listener = new BoardListener();
 const game = new BoardContainer(generator, calculator, listener);
-game.renderGame();
+game.startGame();
