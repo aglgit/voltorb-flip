@@ -10,7 +10,9 @@ class BoardContainer {
     boardCalculator: BoardCalculator;
     boardListener: BoardListener;
     grid: Tile[][];
-    activeTile: Tile | null;
+    selectedTile: Tile;
+    selectedRow: number;
+    selectedCol: number;
     rowSums: TileSum[];
     colSums: TileSum[];
     level: number;
@@ -29,7 +31,6 @@ class BoardContainer {
         this.boardCalculator = boardCalculator;
         this.boardListener = boardListener;
         this.grid = [];
-        this.activeTile = null;
         this.rowSums = [];
         this.colSums = [];
         this.level = 1;
@@ -44,10 +45,17 @@ class BoardContainer {
                 Math.floor(Math.random() * NUM_BOARDS_PER_LEVEL)
             ];
         this.grid = this.boardGenerator.generateBoard(levelData, BOARD_SIZE);
+        this.selectedTile = this.grid[0][0];
+        this.selectedRow = 0;
+        this.selectedCol = 0;
         [this.rowSums, this.colSums] = this.boardCalculator.calculateRowSums(
             this.grid
         );
         this.num2s3s = this.boardCalculator.calculateNum2s3s(this.grid);
+
+        document.addEventListener("keydown", (event) =>
+            this.boardListener.keyPressListener(this, event)
+        );
     }
 
     public resetBoard(): void {
@@ -60,6 +68,9 @@ class BoardContainer {
                 Math.floor(Math.random() * NUM_BOARDS_PER_LEVEL)
             ];
         this.grid = this.boardGenerator.generateBoard(levelData, BOARD_SIZE);
+        this.selectedTile = this.grid[0][0];
+        this.selectedRow = 0;
+        this.selectedCol = 0;
         [this.rowSums, this.colSums] = this.boardCalculator.calculateRowSums(
             this.grid
         );
@@ -117,11 +128,12 @@ class BoardContainer {
     }
 
     private renderGameTile(tileElement: HTMLDivElement, tile: Tile): void {
-        tileElement.className = "game-tile";
         tileElement.tabIndex = 0;
-        if (this.memoMode && tile.selected) {
-            this.activeTile = tile;
-            tileElement.classList.add("active");
+        tileElement.className = "game-tile";
+        if (tile == this.selectedTile && this.memoMode) {
+            tileElement.classList.add("selected-memo");
+        } else if (tile == this.selectedTile) {
+            tileElement.classList.add("selected");
         }
         const marks = Array.from(tile.marks).sort();
         const marksStr = marks.length > 0 ? `[${marks.join(",")}]` : "";
@@ -151,10 +163,6 @@ class BoardContainer {
             memoButton.textContent = this.memoMode
                 ? "Memo Mode: ON"
                 : "Memo Mode: OFF";
-            const gridElement = document.querySelectorAll(".game-tile");
-            gridElement.forEach((tile) => {
-                tile.classList.remove("active");
-            });
             this.renderGame();
         });
     }
@@ -178,7 +186,7 @@ class BoardContainer {
         });
     }
 
-    private toggleMemoMode(): void {
+    public toggleMemoMode(): void {
         this.memoMode = !this.memoMode;
     }
 }

@@ -39,7 +39,6 @@ class BoardGenerator {
             voltorb: value === 0,
             value: value,
             revealed: false,
-            selected: false,
             marks: new Set(),
         };
     }

@@ -59,13 +59,12 @@ body {
     white-space: pre-wrap;
 }
 
-.game-tile:focus {
-    outline: 2px solid yellow;
+.game-tile.selected {
+    outline: 3px solid red;
 }
 
-.game-tile.active {
-    border-color: yellow;
-    border-width: 10px;
+.game-tile.selected-memo {
+    outline: 5px solid yellow;
 }
 
 .info-tile {

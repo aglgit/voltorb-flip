@@ -1,13 +1,14 @@
 import { Tile } from "@src/types/tiles";
 import BoardContainer from "./boardContainer";
+import { BOARD_SIZE } from "@src/types/constants";
 
 class BoardListener {
     public numberButtonClickListener(
         boardContainer: BoardContainer,
         mark: number
     ): void {
-        const tile = boardContainer.activeTile;
-        if (tile != null) {
+        const tile = boardContainer.selectedTile;
+        if (tile) {
             if (tile.marks.has(mark)) {
                 tile.marks.delete(mark);
             } else {
@@ -24,12 +25,80 @@ class BoardListener {
         if (boardContainer.gameOver) {
             boardContainer.resetBoard();
         } else if (boardContainer.memoMode) {
-            boardContainer.grid.flat().forEach((tile) => {
-                tile.selected = false;
-            });
-            tile.selected = true;
+            boardContainer.selectedTile = tile;
         } else {
+            boardContainer.selectedTile = tile;
             this.revealTile(boardContainer, tile);
+        }
+        boardContainer.renderGame();
+    }
+
+    public keyPressListener(
+        boardContainer: BoardContainer,
+        event: KeyboardEvent
+    ) {
+        switch (event.key) {
+            case "ArrowUp":
+                event.preventDefault();
+                if (boardContainer.selectedRow > 0) {
+                    boardContainer.selectedRow--;
+                    boardContainer.selectedTile =
+                        boardContainer.grid[boardContainer.selectedRow][
+                            boardContainer.selectedCol
+                        ];
+                }
+                break;
+            case "ArrowDown":
+                event.preventDefault();
+                if (boardContainer.selectedRow < BOARD_SIZE - 1) {
+                    boardContainer.selectedRow++;
+                    boardContainer.selectedTile =
+                        boardContainer.grid[boardContainer.selectedRow][
+                            boardContainer.selectedCol
+                        ];
+                }
+                break;
+            case "ArrowLeft":
+                event.preventDefault();
+                if (boardContainer.selectedCol > 0) {
+                    boardContainer.selectedCol--;
+                    boardContainer.selectedTile =
+                        boardContainer.grid[boardContainer.selectedRow][
+                            boardContainer.selectedCol
+                        ];
+                }
+                break;
+            case "ArrowRight":
+                event.preventDefault();
+                if (boardContainer.selectedCol < BOARD_SIZE - 1) {
+                    boardContainer.selectedCol++;
+                    boardContainer.selectedTile =
+                        boardContainer.grid[boardContainer.selectedRow][
+                            boardContainer.selectedCol
+                        ];
+                }
+                break;
+            case "Enter":
+                this.gameTileClickListener(
+                    boardContainer,
+                    boardContainer.selectedTile
+                );
+                break;
+            case "0":
+            case "1":
+            case "2":
+            case "3": {
+                const tile = boardContainer.selectedTile;
+                const mark = parseInt(event.key);
+                if (tile) {
+                    if (tile.marks.has(mark)) {
+                        tile.marks.delete(mark);
+                    } else {
+                        tile.marks.add(mark);
+                    }
+                }
+                break;
+            }
         }
         boardContainer.renderGame();
     }
