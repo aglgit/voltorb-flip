@@ -50,7 +50,6 @@ class BoardState {
     public resetBoard(): void {
         this.gameOver = false;
         this.coinsThisLevel = 0;
-        this.num2s3s = 0;
 
         const levelData =
             LEVELS[this.level.toString()][
