@@ -78,6 +78,10 @@ class BoardListener {
                     this.boardState.selectedCol
                 );
                 break;
+            case "x":
+            case "X":
+                this.boardState.toggleMemoMode();
+                break;
             case "0":
             case "1":
             case "2":
