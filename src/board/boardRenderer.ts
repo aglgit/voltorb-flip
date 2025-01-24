@@ -13,53 +13,25 @@ class BoardRenderer {
     }
 
     public firstRenderGame(): void {
-        this.renderBoard();
         this.renderInfo();
+        this.renderBoard();
         this.renderMemoButton();
         this.addEventListeners();
     }
 
-    private addEventListeners(): void {
-        document.addEventListener("keydown", (event) => {
-            this.boardListener.keyPressListener(event);
-            this.renderGame();
-        });
-
-        const memoButton = document.getElementById("memo-button-toggle");
-        memoButton!.textContent = this.boardState.memoMode
-            ? "Memo Mode: ON"
-            : "Memo Mode: OFF";
-        memoButton?.addEventListener("click", () => {
-            this.boardState.toggleMemoMode();
-            this.renderGame();
-        });
-
-        const button0 = document.getElementById("memo-button-0");
-        button0?.addEventListener("click", () => {
-            this.boardListener.gameTileMarkListener(0);
-            this.renderGame();
-        });
-        const button1 = document.getElementById("memo-button-1");
-        button1?.addEventListener("click", () => {
-            this.boardListener.gameTileMarkListener(1);
-            this.renderGame();
-        });
-        const button2 = document.getElementById("memo-button-2");
-        button2?.addEventListener("click", () => {
-            this.boardListener.gameTileMarkListener(2);
-            this.renderGame();
-        });
-        const button3 = document.getElementById("memo-button-3");
-        button3?.addEventListener("click", () => {
-            this.boardListener.gameTileMarkListener(3);
-            this.renderGame();
-        });
+    public renderGame(): void {
+        this.renderInfo();
+        this.renderBoard();
+        this.renderMemoButton();
     }
 
-    public renderGame(): void {
-        this.renderBoard();
-        this.renderInfo();
-        this.renderMemoButton();
+    private renderInfo(): void {
+        const levelElement = document.getElementById("info-level");
+        levelElement!.textContent = `Level: \n${this.boardState.level}`;
+        const coinsElement = document.getElementById("info-coins");
+        coinsElement!.textContent = `Total coins: \n${this.boardState.totalCoins}`;
+        const levelCoinsElement = document.getElementById("info-coins-level");
+        levelCoinsElement!.textContent = `Coins this level: \n${this.boardState.coinsThisLevel}`;
     }
 
     private renderBoard() {
@@ -106,7 +78,6 @@ class BoardRenderer {
         i: number,
         j: number
     ): void {
-        tileElement.tabIndex = 0;
         tileElement.className = "game-tile";
         if (tile == this.boardState.selectedTile && this.boardState.memoMode) {
             tileElement.classList.add("selected-memo");
@@ -126,20 +97,48 @@ class BoardRenderer {
         });
     }
 
-    private renderInfo(): void {
-        const levelElement = document.getElementById("info-level");
-        levelElement!.textContent = `Level: \n${this.boardState.level}`;
-        const coinsElement = document.getElementById("info-coins");
-        coinsElement!.textContent = `Total coins: \n${this.boardState.totalCoins}`;
-        const levelCoinsElement = document.getElementById("info-coins-level");
-        levelCoinsElement!.textContent = `Coins this level: \n${this.boardState.coinsThisLevel}`;
-    }
-
     private renderMemoButton(): void {
         const memoButton = document.getElementById("memo-button-toggle");
         memoButton!.textContent = this.boardState.memoMode
             ? "Memo Mode: ON"
             : "Memo Mode: OFF";
+    }
+
+    private addEventListeners(): void {
+        document.addEventListener("keydown", (event) => {
+            this.boardListener.keyPressListener(event);
+            this.renderGame();
+        });
+
+        const memoButton = document.getElementById("memo-button-toggle");
+        memoButton!.textContent = this.boardState.memoMode
+            ? "Memo Mode: ON"
+            : "Memo Mode: OFF";
+        memoButton?.addEventListener("click", () => {
+            this.boardState.toggleMemoMode();
+            this.renderGame();
+        });
+
+        const button0 = document.getElementById("memo-button-0");
+        button0?.addEventListener("click", () => {
+            this.boardListener.gameTileMarkListener(0);
+            this.renderGame();
+        });
+        const button1 = document.getElementById("memo-button-1");
+        button1?.addEventListener("click", () => {
+            this.boardListener.gameTileMarkListener(1);
+            this.renderGame();
+        });
+        const button2 = document.getElementById("memo-button-2");
+        button2?.addEventListener("click", () => {
+            this.boardListener.gameTileMarkListener(2);
+            this.renderGame();
+        });
+        const button3 = document.getElementById("memo-button-3");
+        button3?.addEventListener("click", () => {
+            this.boardListener.gameTileMarkListener(3);
+            this.renderGame();
+        });
     }
 }
 
