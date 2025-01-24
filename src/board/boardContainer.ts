@@ -53,9 +53,10 @@ class BoardContainer {
         );
         this.num2s3s = this.boardCalculator.calculateNum2s3s(this.grid);
 
-        document.addEventListener("keydown", (event) =>
-            this.boardListener.keyPressListener(this, event)
-        );
+        document.addEventListener("keydown", (event) => {
+            this.boardListener.keyPressListener(this, event);
+            this.renderGame();
+        });
     }
 
     public resetBoard(): void {
@@ -105,7 +106,7 @@ class BoardContainer {
                 } else if (i === BOARD_SIZE || j === BOARD_SIZE) {
                     this.renderInfoTile(tileElement, rowSums, colSums, i, j);
                 } else {
-                    this.renderGameTile(tileElement, grid[i][j]);
+                    this.renderGameTile(tileElement, grid[i][j], i, j);
                 }
                 gameBoard?.appendChild(tileElement);
             }
@@ -127,7 +128,12 @@ class BoardContainer {
         }
     }
 
-    private renderGameTile(tileElement: HTMLDivElement, tile: Tile): void {
+    private renderGameTile(
+        tileElement: HTMLDivElement,
+        tile: Tile,
+        i: number,
+        j: number
+    ): void {
         tileElement.tabIndex = 0;
         tileElement.className = "game-tile";
         if (tile == this.selectedTile && this.memoMode) {
@@ -142,9 +148,10 @@ class BoardContainer {
                 ? "💣"
                 : tile.value.toString() + "\n" + marksStr
             : "" + marksStr;
-        tileElement.addEventListener("click", () =>
-            this.boardListener.gameTileClickListener(this, tile)
-        );
+        tileElement.addEventListener("click", () => {
+            this.boardListener.gameTileRevealListener(this, tile, i, j);
+            this.renderGame();
+        });
     }
 
     private renderInfo(): void {
@@ -170,19 +177,23 @@ class BoardContainer {
     private renderNumberButtons(): void {
         const button0 = document.getElementById("memo-button-0");
         button0?.addEventListener("click", () => {
-            this.boardListener.numberButtonClickListener(this, 0);
+            this.boardListener.gameTileMarkListener(this, 0);
+            this.renderGame();
         });
         const button1 = document.getElementById("memo-button-1");
         button1?.addEventListener("click", () => {
-            this.boardListener.numberButtonClickListener(this, 1);
+            this.boardListener.gameTileMarkListener(this, 1);
+            this.renderGame();
         });
         const button2 = document.getElementById("memo-button-2");
         button2?.addEventListener("click", () => {
-            this.boardListener.numberButtonClickListener(this, 2);
+            this.boardListener.gameTileMarkListener(this, 2);
+            this.renderGame();
         });
         const button3 = document.getElementById("memo-button-3");
         button3?.addEventListener("click", () => {
-            this.boardListener.numberButtonClickListener(this, 3);
+            this.boardListener.gameTileMarkListener(this, 3);
+            this.renderGame();
         });
     }
 

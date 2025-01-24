@@ -3,40 +3,38 @@ import BoardContainer from "./boardContainer";
 import { BOARD_SIZE } from "@src/types/constants";
 
 class BoardListener {
-    public numberButtonClickListener(
+    public gameTileMarkListener(
         boardContainer: BoardContainer,
         mark: number
     ): void {
         const tile = boardContainer.selectedTile;
-        if (tile) {
-            if (tile.marks.has(mark)) {
-                tile.marks.delete(mark);
-            } else {
-                tile.marks.add(mark);
-            }
-        }
-        boardContainer.renderGame();
+        this.toggleMark(tile, mark);
     }
 
-    public gameTileClickListener(
+    public gameTileRevealListener(
         boardContainer: BoardContainer,
-        tile: Tile
+        tile: Tile,
+        i: number,
+        j: number
     ): void {
         if (boardContainer.gameOver) {
             boardContainer.resetBoard();
         } else if (boardContainer.memoMode) {
             boardContainer.selectedTile = tile;
+            boardContainer.selectedRow = i;
+            boardContainer.selectedCol = j;
         } else {
             boardContainer.selectedTile = tile;
+            boardContainer.selectedRow = i;
+            boardContainer.selectedCol = j;
             this.revealTile(boardContainer, tile);
         }
-        boardContainer.renderGame();
     }
 
     public keyPressListener(
         boardContainer: BoardContainer,
         event: KeyboardEvent
-    ) {
+    ): void {
         switch (event.key) {
             case "ArrowUp":
                 event.preventDefault();
@@ -79,9 +77,11 @@ class BoardListener {
                 }
                 break;
             case "Enter":
-                this.gameTileClickListener(
+                this.gameTileRevealListener(
                     boardContainer,
-                    boardContainer.selectedTile
+                    boardContainer.selectedTile,
+                    boardContainer.selectedRow,
+                    boardContainer.selectedCol
                 );
                 break;
             case "0":
@@ -90,20 +90,23 @@ class BoardListener {
             case "3": {
                 const tile = boardContainer.selectedTile;
                 const mark = parseInt(event.key);
-                if (tile) {
-                    if (tile.marks.has(mark)) {
-                        tile.marks.delete(mark);
-                    } else {
-                        tile.marks.add(mark);
-                    }
-                }
+                this.toggleMark(tile, mark);
                 break;
             }
         }
-        boardContainer.renderGame();
     }
 
-    private revealTile(boardContainer: BoardContainer, tile: Tile) {
+    private toggleMark(tile: Tile, mark: number): void {
+        if (tile) {
+            if (tile.marks.has(mark)) {
+                tile.marks.delete(mark);
+            } else {
+                tile.marks.add(mark);
+            }
+        }
+    }
+
+    private revealTile(boardContainer: BoardContainer, tile: Tile): void {
         tile.revealed = true;
         if (tile.voltorb) {
             this.triggerGameOver(boardContainer);
@@ -125,7 +128,7 @@ class BoardListener {
         return boardContainer.num2s3s === 0;
     }
 
-    private triggerGameOver(boardContainer: BoardContainer) {
+    private triggerGameOver(boardContainer: BoardContainer): void {
         boardContainer.gameOver = true;
         alert("Game over!");
         this.flipBoard(true, boardContainer);
@@ -133,7 +136,7 @@ class BoardListener {
             boardContainer.level > 1 ? boardContainer.level - 1 : 1;
     }
 
-    private triggerGameComplete(boardContainer: BoardContainer) {
+    private triggerGameComplete(boardContainer: BoardContainer): void {
         boardContainer.gameOver = true;
         alert("You won!");
         this.flipBoard(true, boardContainer);
