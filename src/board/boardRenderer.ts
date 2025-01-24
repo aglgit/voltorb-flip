@@ -1,38 +1,27 @@
-import BoardCalculator from "./boardCalculator";
-import BoardGenerator from "./boardGenerator";
 import { BOARD_SIZE } from "@src/types/constants";
 import { Tile, TileSum } from "@src/types/tiles";
 import BoardListener from "./boardListener";
 import BoardState from "./boardState";
 
-class BoardContainer {
-    boardGenerator: BoardGenerator;
-    boardCalculator: BoardCalculator;
+class BoardRenderer {
     boardListener: BoardListener;
     boardState: BoardState;
 
-    public constructor(
-        boardGenerator: BoardGenerator,
-        boardCalculator: BoardCalculator,
-        boardListener: BoardListener,
-        boardState: BoardState
-    ) {
-        this.boardGenerator = boardGenerator;
-        this.boardCalculator = boardCalculator;
+    public constructor(boardListener: BoardListener, boardState: BoardState) {
         this.boardListener = boardListener;
         this.boardState = boardState;
+    }
+
+    public firstRenderGame(): void {
+        this.renderBoard();
+        this.renderInfo();
+        this.renderMemoButton();
+        this.renderNumberButtons();
 
         document.addEventListener("keydown", (event) => {
             this.boardListener.keyPressListener(event);
             this.renderGame();
         });
-    }
-
-    public startGame(): void {
-        this.renderBoard();
-        this.renderInfo();
-        this.renderMemoButton();
-        this.renderNumberButtons();
     }
 
     public renderGame(): void {
@@ -148,4 +137,4 @@ class BoardContainer {
     }
 }
 
-export default BoardContainer;
+export default BoardRenderer;
