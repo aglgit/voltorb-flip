@@ -10,7 +10,6 @@ const boardState: BoardState = new BoardState(boardGenerator, boardCalculator);
 test("Reset board ensures correct state", () => {
     boardState.gameOver = true;
     boardState.coinsThisLevel = 300;
-    boardState.num2s3s = 7;
     boardState.selectedTile = boardState.grid[1][1];
     boardState.selectedRow = 1;
     boardState.selectedCol = 1;
