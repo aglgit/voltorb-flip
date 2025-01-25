@@ -34,7 +34,7 @@ class BoardRenderer {
         levelCoinsElement!.textContent = `Coins this level: \n${this.boardState.coinsThisLevel}`;
     }
 
-    private renderBoard() {
+    private renderBoard(): void {
         const gameBoard: HTMLElement | null =
             document.getElementById("game-board");
         gameBoard!.innerHTML = "";
