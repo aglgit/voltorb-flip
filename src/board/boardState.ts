@@ -10,6 +10,7 @@ class BoardState {
     boardCalculator: BoardCalculator;
     level: number;
     gameOver: boolean;
+    gameWon: boolean;
     memoMode: boolean;
     totalCoins: number;
     coinsThisLevel: number;
@@ -30,6 +31,7 @@ class BoardState {
 
         this.level = 1;
         this.gameOver = false;
+        this.gameWon = false;
         this.memoMode = false;
         this.totalCoins = 0;
         this.coinsThisLevel = 0;
@@ -50,7 +52,7 @@ class BoardState {
 
     public resetBoard(): void {
         this.gameOver = false;
-        this.coinsThisLevel = 0;
+        this.gameWon = false;
 
         const levelData =
             LEVELS[this.level.toString()][
@@ -127,7 +129,7 @@ class BoardState {
     public revealTile(tile: Tile): void {
         tile.revealed = true;
         if (tile.voltorb) {
-            this.advanceGameOver();
+            this.triggerGameOver();
         } else {
             if (tile.value > 1) {
                 this.num2s3s--;
@@ -138,7 +140,7 @@ class BoardState {
                     : tile.value;
         }
         if (this.isGamecomplete()) {
-            this.advanceGameComplete();
+            this.triggerGameWon();
         }
     }
 
@@ -151,19 +153,18 @@ class BoardState {
         });
     }
 
-    private advanceGameOver(): void {
-        // TODO: remove this rendering logic from state
-        alert("Game over!");
+    private triggerGameOver(): void {
         this.gameOver = true;
         this.flipBoard();
+        this.coinsThisLevel = 0;
         this.level = this.level > 1 ? this.level - 1 : 1;
     }
 
-    private advanceGameComplete(): void {
-        alert("You won!");
-        this.gameOver = true;
+    private triggerGameWon(): void {
+        this.gameWon = true;
         this.flipBoard();
         this.totalCoins += this.coinsThisLevel;
+        this.coinsThisLevel = 0;
         this.level++;
     }
 }

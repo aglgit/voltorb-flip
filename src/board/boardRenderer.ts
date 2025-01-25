@@ -20,9 +20,18 @@ class BoardRenderer {
     }
 
     public renderGame(): void {
+        this.renderGameAlert();
         this.renderInfo();
         this.renderBoard();
         this.renderMemoButton();
+    }
+
+    private renderGameAlert() {
+        if (this.boardState.gameWon) {
+            alert("You won!");
+        } else if (this.boardState.gameOver) {
+            alert("Game over!");
+        }
     }
 
     private renderInfo(): void {

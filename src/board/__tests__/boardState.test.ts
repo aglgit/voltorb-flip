@@ -9,7 +9,6 @@ const boardState: BoardState = new BoardState(boardGenerator, boardCalculator);
 
 test("Reset board ensures correct state", () => {
     boardState.gameOver = true;
-    boardState.coinsThisLevel = 300;
     boardState.selectedTile = boardState.grid[1][1];
     boardState.selectedRow = 1;
     boardState.selectedCol = 1;
@@ -17,7 +16,6 @@ test("Reset board ensures correct state", () => {
     boardState.resetBoard();
 
     expect(boardState.gameOver).toBe(false);
-    expect(boardState.coinsThisLevel).toBe(0);
     expect(boardState.selectedTile).toBe(boardState.grid[0][0]);
     expect(boardState.selectedRow).toBe(0);
     expect(boardState.selectedCol).toBe(0);

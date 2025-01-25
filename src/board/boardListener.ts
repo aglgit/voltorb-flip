@@ -14,7 +14,7 @@ class BoardListener {
     }
 
     public gameTileRevealListener(tile: Tile, i: number, j: number): void {
-        if (this.boardState.gameOver) {
+        if (this.boardState.gameOver || this.boardState.gameWon) {
             this.boardState.resetBoard();
         } else if (this.boardState.memoMode) {
             this.boardState.toggleSelectedTile(tile, i, j);
