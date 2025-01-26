@@ -2,7 +2,15 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #3e9b4a;
-    min-height: 95vh;
+    min-height: 95%;
+}
+
+h1 {
+    margin: 15px 15px;
+}
+
+h2 {
+    margin: 10px 10px;
 }
 
 #game-info {
@@ -10,13 +18,13 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #f5f5f5;
-    padding: 10px 10px 10px 10px;
+    padding: 10px 0;
     margin: 10px auto 10px;
-    max-width: 60vh;
+    max-width: 80vh;
 }
 
 .info-text {
-    padding: 10px 10px;
+    padding: 8px 8px;
     white-space: pre-wrap;
 }
 
@@ -36,7 +44,9 @@ body {
     border-radius: 10px;
 }
 
-.game-tile {
+.game-tile,
+.info-tile,
+.empty-tile {
     width: 75px;
     height: 75px;
     background-color: #ccc;
@@ -54,31 +64,7 @@ body {
 }
 
 .game-tile.selected-memo {
-    outline: 5px solid yellow;
-}
-
-.info-tile {
-    width: 75px;
-    height: 75px;
-    background-color: #ccc;
-    border: 1px solid #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    white-space: pre-wrap;
-}
-
-.empty-tile {
-    width: 75px;
-    height: 75px;
-    background-color: #ccc;
-    border: 1px solid #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    white-space: pre-wrap;
+    outline: 3px solid yellow;
 }
 
 #game-instructions {
@@ -86,14 +72,45 @@ body {
     flex-direction: column;
     background-color: #f5f5f5;
     padding: 0;
-    margin: 40px auto 20px;
-    max-width: 60vh;
+    margin: 20px auto 10px;
+    max-width: 80vh;
 }
 
 ul {
     display: inline-block;
+    margin: 10px 10px;
 }
 
 li {
     text-align: left;
+}
+
+.h_iframe iframe {
+    position: absolute;
+    width: 90vh;
+    height: 90vh;
+}
+
+@media (max-width: 600px) {
+    #game-board {
+        grid-template-rows: repeat(6, 50px);
+        grid-template-columns: repeat(6, 50px);
+    }
+
+    .game-tile,
+    .info-tile,
+    .empty-tile {
+        width: 50px;
+        height: 50px;
+    }
+
+    #game-info,
+    #game-instructions {
+        max-width: 95%;
+        padding: 10px;
+    }
+
+    body {
+        font-size: 14px;
+    }
 }
