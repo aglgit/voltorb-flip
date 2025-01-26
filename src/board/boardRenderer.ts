@@ -120,9 +120,6 @@ class BoardRenderer {
         });
 
         const memoButton = document.getElementById("memo-button-toggle");
-        memoButton!.textContent = this.boardState.memoMode
-            ? "Memo Mode: ON"
-            : "Memo Mode: OFF";
         memoButton?.addEventListener("click", () => {
             this.boardState.toggleMemoMode();
             this.renderGame();
