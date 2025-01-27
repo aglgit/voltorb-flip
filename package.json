@@ -8,7 +8,9 @@
     "devDependencies": {
         "@eslint/js": "^9.18.0",
         "@types/node": "^22.10.7",
+        "@vitest/coverage-v8": "^2.1.8",
         "@vitest/eslint-plugin": "^1.1.25",
+        "@vitest/ui": "^2.1.8",
         "eslint": "^9.18.0",
         "gh-pages": "^6.3.0",
         "globals": "^15.14.0",
@@ -26,7 +28,8 @@
         "test": "vitest",
         "prettify": "prettier . --write",
         "lint": "eslint --fix",
-        "pretty-lint": "npm run prettify && npm run lint"
+        "pretty-lint": "npm run prettify && npm run lint",
+        "vitest-ui": "vitest --ui --coverage --watch"
     },
     "keywords": [],
     "author": "",
