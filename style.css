@@ -89,10 +89,20 @@ li {
     text-align: left;
 }
 
-.h_iframe iframe {
-    position: absolute;
-    width: 90vh;
-    height: 90vh;
+#video-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 20px auto 10px;
+    max-width: 25vh;
+    max-height: 25vh;
+}
+
+#video-wrapper img {
+    width: 10vh;
+    height: 10vh;
 }
 
 @media (max-width: 600px) {

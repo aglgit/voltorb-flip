@@ -145,6 +145,45 @@ class BoardRenderer {
             this.boardListener.gameTileMarkListener(3);
             this.renderGame();
         });
+
+        const playbutton = document.getElementById("playbutton");
+        playbutton?.addEventListener("click", () => {
+            this.showVideoPlayer();
+        });
+    }
+
+    private showVideoPlayer() {
+        const wrapper = document.getElementById("video-wrapper");
+        wrapper!.innerHTML = `
+        <iframe
+            src="https://www.youtube-nocookie.com/embed/gRXcyH1JdCI?si=reyhs21yrvFSsDS5"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+        ></iframe>
+        <button id="close-button">Close</button>
+        `;
+
+        const closeButton = document.getElementById("close-button");
+        closeButton?.addEventListener("click", () => {
+            this.hideVideoPlayer();
+        });
+    }
+
+    private hideVideoPlayer() {
+        const wrapper = document.getElementById("video-wrapper");
+        wrapper!.innerHTML = `
+            <img
+                id="playbutton"
+                src="public/images/playbutton.png"
+                alt="Play Button"
+            />
+            `;
+
+        const playbutton = document.getElementById("playbutton");
+        playbutton?.addEventListener("click", () => this.showVideoPlayer());
     }
 }
 
