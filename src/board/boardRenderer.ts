@@ -177,7 +177,7 @@ class BoardRenderer {
         wrapper!.innerHTML = `
             <img
                 id="playbutton"
-                src="public/images/playbutton.png"
+                src="images/playbutton.png"
                 alt="Play Button"
             />
             `;
