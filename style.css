@@ -96,6 +96,10 @@ li {
     text-align: left;
 }
 
+button {
+    border-radius: 5px;
+}
+
 #video-wrapper {
     display: flex;
     flex-direction: column;
