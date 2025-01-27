@@ -26,18 +26,26 @@ class BoardListener {
 
     public keyPressListener(event: KeyboardEvent): void {
         switch (event.key) {
+            case "w":
+            case "W":
             case "ArrowUp":
                 event.preventDefault();
                 this.boardState.moveSelectedTile(Direction.Up);
                 break;
+            case "s":
+            case "S":
             case "ArrowDown":
                 event.preventDefault();
                 this.boardState.moveSelectedTile(Direction.Down);
                 break;
+            case "a":
+            case "A":
             case "ArrowLeft":
                 event.preventDefault();
                 this.boardState.moveSelectedTile(Direction.Left);
                 break;
+            case "d":
+            case "D":
             case "ArrowRight":
                 event.preventDefault();
                 this.boardState.moveSelectedTile(Direction.Right);
