@@ -155,6 +155,7 @@ class BoardRenderer {
     private showVideoPlayer() {
         const wrapper = document.getElementById("video-wrapper");
         wrapper!.innerHTML = `
+        <button id="close-button">Close</button>
         <iframe
             src="https://www.youtube-nocookie.com/embed/gRXcyH1JdCI?si=reyhs21yrvFSsDS5"
             title="YouTube video player"
@@ -163,7 +164,6 @@ class BoardRenderer {
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
         ></iframe>
-        <button id="close-button">Close</button>
         `;
 
         const closeButton = document.getElementById("close-button");
