@@ -1,7 +1,24 @@
+$primary-bg-color: #399c6a;
+$secondary-bg-color: #f5f5f5;
+$font-size-default: 16px;
+$font-size-mobile: 12px;
+$tile-bg-color: #ccc;
+$tile-border-color: #333;
+$tile-size-default: 100px;
+$tile-size-mobile: 55px;
+$box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 body {
     font-family: Arial, sans-serif;
+    font-size: $font-size-default;
     text-align: center;
-    background-color: #399c6a;
+    background-color: $primary-bg-color;
     min-height: 95%;
 }
 
@@ -14,15 +31,13 @@ h2 {
 }
 
 #game-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5;
+    @include flex-center();
+    background-color: $secondary-bg-color;
     padding: 5px 0;
     margin: 10px auto 10px;
     max-width: 60vh;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: $box-shadow;
 }
 
 .info-text {
@@ -31,16 +46,14 @@ h2 {
 }
 
 #game-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center();
     margin: 0;
 }
 
 #game-board {
     display: grid;
-    grid-template-rows: repeat(6, 75px);
-    grid-template-columns: repeat(6, 75px);
+    grid-template-rows: repeat(6, $tile-size-default);
+    grid-template-columns: repeat(6, $tile-size-default);
     gap: 5px;
     padding: 10px;
     border-radius: 10px;
@@ -49,13 +62,11 @@ h2 {
 .game-tile,
 .info-tile,
 .empty-tile {
-    width: 75px;
-    height: 75px;
-    background-color: #ccc;
-    border: 1px solid #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: $tile-size-default;
+    height: $tile-size-default;
+    background-color: $tile-bg-color;
+    border: 1px solid $tile-border-color;
+    @include flex-center();
     cursor: pointer;
     box-sizing: border-box;
     white-space: pre-wrap;
@@ -77,14 +88,14 @@ h2 {
 }
 
 #game-instructions {
-    display: flex;
+    @include flex-center();
     flex-direction: column;
     background-color: #f5f5f5;
     padding: 0 10px 0 10px;
     margin: 20px auto 10px;
     max-width: 60vh;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: $box-shadow;
 }
 
 ul {
@@ -101,10 +112,8 @@ button {
 }
 
 #video-wrapper {
-    display: flex;
+    @include flex-center();
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     padding: 0;
     margin: 20px auto 10px;
     max-width: 25vh;
@@ -118,15 +127,15 @@ button {
 
 @media (max-width: 600px) {
     #game-board {
-        grid-template-rows: repeat(6, 50px);
-        grid-template-columns: repeat(6, 50px);
+        grid-template-rows: repeat(6, $tile-size-mobile);
+        grid-template-columns: repeat(6, $tile-size-mobile);
     }
 
     .game-tile,
     .info-tile,
     .empty-tile {
-        width: 50px;
-        height: 50px;
+        width: $tile-size-mobile;
+        height: $tile-size-mobile;
     }
 
     #game-info,
@@ -135,6 +144,6 @@ button {
     }
 
     body {
-        font-size: 12px;
+        font-size: $font-size-mobile;
     }
 }
