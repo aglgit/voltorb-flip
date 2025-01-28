@@ -34,7 +34,7 @@ test.describe("Memo Mode: ON", () => {
         const cellValue = await page.locator(cellSelector).innerText();
         expect(cellValue).toBe("");
     });
-    test("toggle mark should add textElement", async ({page}) => {
+    test("toggle mark should add textElement", async ({ page }) => {
         const cellSelector = "#tile-2-2";
         const firstTile = await page.$(cellSelector);
         await firstTile?.click();
@@ -48,11 +48,13 @@ test.describe("Memo Mode: ON", () => {
 });
 
 test.describe("Display Video Wrapper", () => {
-    test("should allow me to open and close video wrapper", async ({page}) => {
+    test("should allow me to open and close video wrapper", async ({
+        page,
+    }) => {
         const playbutton = await page.$("#playbutton");
         await playbutton?.click();
 
-        await expect(page.getByRole("button", {name: "Close"})).toBeVisible();
+        await expect(page.getByRole("button", { name: "Close" })).toBeVisible();
         await expect(page.locator("iframe")).toBeVisible();
     });
 });
