@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-    await page.goto("http://localhost:5173/voltorb-flip/");
+    await page.goto("https://aglgit.github.io/voltorb-flip/");
 });
 
 test.describe("Memo Mode: OFF", () => {
