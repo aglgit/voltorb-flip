@@ -127,7 +127,11 @@ class BoardState {
     }
 
     public revealTile(tile: Tile): void {
-        tile.revealed = true;
+        if (!tile.revealed) {
+            tile.revealed = true;
+        } else {
+            return;
+        }
         if (tile.voltorb) {
             this.triggerGameOver();
         } else {
