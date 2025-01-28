@@ -54,6 +54,7 @@ class BoardRenderer {
         for (let i = 0; i <= BOARD_SIZE; i++) {
             for (let j = 0; j <= BOARD_SIZE; j++) {
                 const tileElement = document.createElement("div");
+                tileElement.id = `tile-${i}-${j}`
                 if (i === BOARD_SIZE && j === BOARD_SIZE) {
                     tileElement.className = "empty-tile";
                 } else if (i === BOARD_SIZE || j === BOARD_SIZE) {
