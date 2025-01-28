@@ -6,7 +6,7 @@ import vitest from "@vitest/eslint-plugin";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
     { files: ["src/**/*.{js,mjs,cjs,ts}"] },
-    { ignores: ["**/node_modules/**", "dist/"] },
+    { ignores: ["**/node_modules/**", "dist/", "playwright-report/"] },
     { plugins: { vitest } },
     { languageOptions: { globals: globals.browser } },
     pluginJs.configs.recommended,
