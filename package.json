@@ -27,6 +27,7 @@
         "preview": "vite preview",
         "deploy": "vite build && gh-pages -d dist",
         "test": "vitest",
+        "test:e2e": "playwright test",
         "prettify": "prettier . --write",
         "lint": "eslint --fix",
         "pretty-lint": "npm run prettify && npm run lint",
