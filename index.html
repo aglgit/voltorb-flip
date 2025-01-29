@@ -1,2 +1,68 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/images/favicon.ico"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.1.10"><title>Andreas L</title><style>html{background-color:#f1f5f9;font-family:sans-serif}body{margin:0 auto;width:100%;max-width:80ch;padding:1rem;line-height:1.5}*{box-sizing:border-box}
-</style></head> <body> <div id="header" class="nav-links"> <a href="/">Home</a> | <a href="/projects">Projects</a> | <a href="https://github.com/aglgit">Github</a> </div> <img src="images/breakfast-brian.jpg"> <p>About text goes here.</p> <div id="footer" class="nav-links"> <a href="https://github.com/aglgit">Github</a> </div> </body></html>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Voltorb Flip</title>
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+      <script type="module" crossorigin src="/voltorb-flip/assets/index-BncAAax9.js"></script>
+      <link rel="stylesheet" crossorigin href="/voltorb-flip/assets/index-BlUwcXEi.css">
+    </head>
+    <body>
+        <div id="game-info">
+            <div class="info-text" id="info-level">Level</div>
+            <div class="info-text" id="info-coins">Total Coins</div>
+            <div class="info-text" id="info-coins-level">Coins this level</div>
+        </div>
+        <div id="game-container">
+            <div id="game-board"></div>
+        </div>
+        <div id="memo-buttons">
+            <button id="memo-button-toggle">Memo Mode: OFF</button>
+            <div id="memo-button-numbers">
+                <button class="memo-button-number" id="memo-button-0">0</button>
+                <button class="memo-button-number" id="memo-button-1">1</button>
+                <button class="memo-button-number" id="memo-button-2">2</button>
+                <button class="memo-button-number" id="memo-button-3">3</button>
+            </div>
+        </div>
+        <div id="game-instructions">
+            <div id="controls">
+                <h2>Controls</h2>
+                <ul>
+                    <li>WASD/Arrow keys: Select tile</li>
+                    <li>Enter: Reveal tile</li>
+                    <li>X: Enter Memo mode</li>
+                    <li>0/1/2/3: Toggle marker</li>
+                </ul>
+            </div>
+            <div id="about">
+                <h2>About</h2>
+                <p>
+                    This is a project for me to learn HTML, CSS and
+                    JavaScript/TypeScript. It is heavily based on Voltorb Flip
+                    by
+                    <a href="https://voltorbflip.brandon-stein.com/"
+                        >Brandon Stein</a
+                    >
+                    as well as the
+                    <a
+                        href="https://bulbapedia.bulbagarden.net/wiki/Voltorb_Flip"
+                        >original game</a
+                    >.
+                </p>
+                <p>
+                    The source code can be found
+                    <a href="https://github.com/aglgit/voltorb-flip">here</a>.
+                </p>
+            </div>
+        </div>
+        <div id="video-wrapper">
+            <img
+                id="playbutton"
+                src="images/playbutton.png"
+                alt="Play Button"
+            />
+        </div>
+    </body>
+</html>
