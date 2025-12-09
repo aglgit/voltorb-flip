@@ -24,7 +24,16 @@ class BoardGenerator {
             grid.push(tiles.slice(i * boardSize, (i + 1) * boardSize));
         }
 
-        console.log(grid);
+        // Cheat sheet: display the board solution
+        console.log(
+            "%c🎮 CHEAT MODE: Board Solution 🎮",
+            "background: #00d4aa; color: white; font-weight: bold; padding: 8px 16px; border-radius: 4px; font-size: 14px;"
+        );
+        console.table(
+            grid.map((row) =>
+                row.map((tile) => (tile.voltorb ? "💣" : tile.value))
+            )
+        );
         return grid;
     }
 
